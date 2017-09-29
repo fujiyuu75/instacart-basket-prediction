@@ -30,9 +30,9 @@ if __name__ == '__main__':
     labels = []
 
     longest = 0
-    for _, row in df.iterrows():
-        if _ % 10000 == 0:
-            print _
+    for key, row in df.iterrows():
+        if key % 10000 == 0:
+            print (key)
 
         user_id = row['user_id']
         eval_set = row['eval_set']
@@ -70,7 +70,7 @@ if __name__ == '__main__':
             for order in orders:
                 is_ordered.append(str(int(product_id in order)))
                 index_in_order.append(str(order.index(product_id) + 1) if product_id in order else '0')
-                order_size.append(str(len(order)))
+                order_size.append(str(len(list(order))))
                 reorder_size.append(str(len(prior_products & set(order))))
                 prior_products |= set(order)
 
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         for reorder in reorders:
             is_ordered.append(str(int(max(reorder) == 0)))
             index_in_order.append(str(0))
-            order_size.append(str(len(reorder)))
+            order_size.append(str(len(list(reorder))))
             reorder_size.append(str(sum(reorder)))
 
         is_ordered = ' '.join(is_ordered)

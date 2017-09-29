@@ -25,9 +25,9 @@ if __name__ == '__main__':
     num_products_from_aisle_histories = []
 
     longest = 0
-    for _, row in df.iterrows():
-        if _ % 10000 == 0:
-            print _
+    for key, row in df.iterrows():
+        if key % 10000 == 0:
+            print (key)
 
         user_id = row['user_id']
         eval_set = row['eval_set']
