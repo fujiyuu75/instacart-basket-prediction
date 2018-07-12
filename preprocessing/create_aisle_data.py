@@ -56,7 +56,7 @@ if __name__ == '__main__':
             for order in orders:
                 order_set = set(order)
                 is_ordered.append(str(int(aisle_id in order_set)))
-                unique_order = list(unique_everseen(order))
+                unique_order = list(order_set)
                 index_in_order.append(str(unique_order.index(aisle_id) + 1) if aisle_id in order_set else '0')
                 num_products_from_aisle.append(str(sum([i == aisle_id for i in order])))
                 order_size.append(str(len(set(order))))

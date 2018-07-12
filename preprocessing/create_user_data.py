@@ -1,6 +1,17 @@
 import os
-
 import pandas as pd
+
+from tqdm import tqdm
+
+tqdm.pandas(desc="my bar!")
+
+from joblib import Parallel, delayed
+import multiprocessing
+
+
+def applyParallel(dfGrouped, func):
+    series = Parallel(n_jobs=multiprocessing.cpu_count())(delayed(func)(group) for name, group in tqdm(dfGrouped))
+    return series
 
 
 def parse_order(x):
@@ -36,8 +47,10 @@ def parse_user(x):
     series['reorders'] = ' '.join(parsed_orders['reorders'].values.astype(str).tolist())
 
     series['eval_set'] = x['eval_set'].values[-1]
+    series['user_id'] = x['user_id'].values[-1]
 
     return series
+
 
 if __name__ == '__main__':
     orders = pd.read_csv('../data/raw/orders.csv')
@@ -55,5 +68,6 @@ if __name__ == '__main__':
     if not os.path.isdir('../data/processed'):
         os.makedirs('../data/processed')
 
-    user_data = df.groupby('user_id', sort=False).apply(parse_user).reset_index()
+    user_data = applyParallel(df.groupby('user_id', sort=False), parse_user)
+    user_data = pd.DataFrame(user_data)
     user_data.to_csv('../data/processed/user_data.csv', index=False)

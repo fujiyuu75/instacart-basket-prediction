@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     for i, row in product_data.iterrows():
         if i % 10000 == 0:
-            print i, num_rows
+            print ((i, num_rows))
 
         user_id[i] = row['user_id']
         product_id[i] = row['product_id']
@@ -74,15 +74,16 @@ if __name__ == '__main__':
         eval_set[i] = row['eval_set']
         label[i] = row['label']
 
-        is_ordered_history[i, :], history_length[i] = pad_1d(map(int, row['is_ordered_history'].split()), 100)
-        index_in_order_history[i, :], _ = pad_1d(map(int, row['index_in_order_history'].split()), 100)
-        order_dow_history[i, :], _ = pad_1d(map(int, row['order_dow_history'].split()), 100)
-        order_hour_history[i, :], _ = pad_1d(map(int, row['order_hour_history'].split()), 100)
-        days_since_prior_order_history[i, :], _ = pad_1d(map(int, row['days_since_prior_order_history'].split()), 100)
-        order_size_history[i, :], _ = pad_1d(map(int, row['order_size_history'].split()), 100)
-        reorder_size_history[i, :], _ = pad_1d(map(int, row['reorder_size_history'].split()), 100)
-        order_number_history[i, :], _ = pad_1d(map(int, row['order_number_history'].split()), 100)
-        product_name[i, :], product_name_length[i] = pad_1d(map(int, row['product_name_encoded'].split()), 30)
+        is_ordered_history[i, :], history_length[i] = pad_1d(list(map(int, row['is_ordered_history'].split())), 100)
+        index_in_order_history[i, :], _ = pad_1d(list(map(int, row['index_in_order_history'].split())), 100)
+        order_dow_history[i, :], _ = pad_1d(list(map(int, row['order_dow_history'].split())), 100)
+        order_hour_history[i, :], _ = pad_1d(list(map(int, row['order_hour_history'].split())), 100)
+        days_since_prior_order_history[i, :], _ = pad_1d(list(map(int, row['days_since_prior_order_history'].split())),
+                                                         100)
+        order_size_history[i, :], _ = pad_1d(list(map(int, row['order_size_history'].split())), 100)
+        reorder_size_history[i, :], _ = pad_1d(list(map(int, row['reorder_size_history'].split())), 100)
+        order_number_history[i, :], _ = pad_1d(list(map(int, row['order_number_history'].split())), 100)
+        product_name[i, :], product_name_length[i] = pad_1d(list(map(int, row['product_name_encoded'].split())), 30)
 
     if not os.path.isdir('data'):
         os.makedirs('data')

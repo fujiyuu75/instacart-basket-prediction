@@ -21,9 +21,9 @@ if __name__ == '__main__':
     num_products_from_department_histories = []
 
     longest = 0
-    for _, row in df.iterrows():
-        if _ % 10000 == 0:
-            print _
+    for key, row in df.iterrows():
+        if key % 10000 == 0:
+            print (key)
 
         user_id = row['user_id']
         eval_set = row['eval_set']
@@ -50,7 +50,7 @@ if __name__ == '__main__':
             for order in orders:
                 order_set = set(order)
                 is_ordered.append(str(int(department_id in order_set)))
-                unique_order = list(unique_everseen(order))
+                unique_order = list(order_set)
                 index_in_order.append(str(unique_order.index(department_id) + 1) if department_id in order_set else '0')
                 num_products_from_department.append(str(sum([i == department_id for i in order])))
                 order_size.append(str(len(set(order))))

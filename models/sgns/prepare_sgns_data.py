@@ -9,9 +9,9 @@ if __name__ == '__main__':
 
     x = []
     y = []
-    for _, row in user_data.iterrows():
-        if _ % 10000 == 0:
-            print _
+    for key, row in user_data.iterrows():
+        if key % 10000 == 0:
+            print (key)
 
         user_id = row['user_id']
         products = row['product_ids']

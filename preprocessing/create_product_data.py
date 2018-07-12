@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+from tqdm import tqdm
 
 
 if __name__ == '__main__':
@@ -30,7 +31,7 @@ if __name__ == '__main__':
     labels = []
 
     longest = 0
-    for key, row in df.iterrows():
+    for key, row in tqdm(df.iterrows()):
         if key % 10000 == 0:
             print (key)
 
